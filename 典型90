@@ -1,0 +1,46 @@
+import copy
+N=int(input())
+li=[[] for i in range(N)]
+
+for i in range(N-1):
+    a,b=map(int,input().split())
+    a-=1
+    b-=1
+    li[a].append(b)
+    li[b].append(a)
+
+data=[[0,0]]
+
+Okinawa=0
+dist=0
+visited=[False]*N
+
+while len(data)>0:
+    pos,depth=data.pop()
+    visited[pos]=True
+    if dist<depth:
+        dist=copy.copy(depth)
+        Okinawa=copy.copy(pos)
+    for nxt in li[pos]:
+        if visited[nxt]==False:
+            data.append([nxt,depth+1])
+
+
+data=[[Okinawa,0]]
+
+Okinawa=0
+dist=0
+
+visited=[False]*N
+
+while len(data)>0:
+    pos,depth=data.pop()
+    visited[pos]=True
+    if dist<depth:
+        dist=copy.copy(depth)
+        Okinawa=copy.copy(pos)
+    for nxt in li[pos]:
+        if visited[nxt]==False:
+            data.append([nxt,depth+1])
+
+print(dist+1)
